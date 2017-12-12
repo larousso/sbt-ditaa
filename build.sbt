@@ -19,6 +19,25 @@ publishTo := {
   }
 }
 
-publishMavenStyle := false
+publishMavenStyle := true
 
 publishArtifact in Test := false
+
+pomIncludeRepository := { _ => false }
+
+pomExtra := (
+  <licenses>
+    <license>
+      <name>Apache 2</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+    <developers>
+      <developer>
+        <id>alexandre.delegue</id>
+        <name>Alexandre Delègue</name>
+        <url>https://github.com/larousso</url>
+      </developer>
+    </developers>
+  )
