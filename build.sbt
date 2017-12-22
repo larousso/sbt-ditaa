@@ -10,7 +10,7 @@ sbtPlugin := true
 
 packageBin in Compile := (assembly in Compile).value
 
-resolvers += Resolver.jcenterRepo
+resolvers += Resolver.bintrayRepo("larousso", "maven")
 
 lazy val githubRepo = "larousso/sbt-ditaa"
 
