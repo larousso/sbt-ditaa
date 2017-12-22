@@ -29,7 +29,7 @@ scmInfo := Some(
 developers := List(
   Developer("alexandre.delegue", "Alexandre Delègue", "", url(s"https://github.com/larousso"))
 )
-publishMavenStyle := true
+publishMavenStyle := false
 
 publishArtifact in Test := false
 
