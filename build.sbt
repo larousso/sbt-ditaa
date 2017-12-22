@@ -7,7 +7,7 @@ lazy val root = (project in file("."))
     name := "sbt-ditaa",
     organization := "com.adelegue",
     description := "sbt plugin to build ditaa diagrams",
-    resolvers += Resolver.bintrayIvyRepo("larousso", "maven"),
+    resolvers += Resolver.bintrayRepo("larousso", "maven"),
     sbtPlugin := true,
     packageBin in Compile := (assembly in Compile).value,
   )
