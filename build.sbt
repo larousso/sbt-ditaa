@@ -10,7 +10,11 @@ sbtPlugin := true
 
 packageBin in Compile := (assembly in Compile).value
 
+resolvers += Resolver.jcenterRepo
+
 lazy val githubRepo = "larousso/sbt-ditaa"
+
+releaseCrossBuild := false
 
 homepage := Some(url(s"https://github.com/$githubRepo"))
 startYear := Some(2017)
@@ -30,8 +34,6 @@ publishMavenStyle := true
 publishArtifact in Test := false
 
 bintrayVcsUrl := Some(s"scm:git:git@github.com:$githubRepo.git")
-
-bintrayCredentialsFile := file(".credentials")
 
 pomIncludeRepository := { _ => false }
 
