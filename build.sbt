@@ -1,8 +1,8 @@
+import sbtrelease.ReleaseStateTransformations._
+
 name := "sbt-ditaa"
 
 organization := "com.adelegue"
-
-version := "0.1"
 
 description := "sbt plugin to build ditaa diagrams"
 
@@ -10,34 +10,40 @@ sbtPlugin := true
 
 packageBin in Compile := (assembly in Compile).value
 
-publishTo := {
-  val localPublishRepo = "./repository"
-  if (isSnapshot.value) {
-    Some(Resolver.file("snapshots", new File(localPublishRepo + "/snapshots")))
-  } else {
-    Some(Resolver.file("releases", new File(localPublishRepo + "/releases")))
-  }
-}
+lazy val githubRepo = "larousso/sbt-ditaa"
 
+homepage := Some(url(s"https://github.com/$githubRepo"))
+startYear := Some(2017)
+licenses := Seq(("Apache-2.0", url("http://www.apache.org/licenses/LICENSE-2.0")))
+scmInfo := Some(
+  ScmInfo(
+    url(s"https://github.com/$githubRepo"),
+    s"scm:git:https://github.com/$githubRepo.git",
+    Some(s"scm:git:git@github.com:$githubRepo.git")
+  )
+)
+developers := List(
+  Developer("alexandre.delegue", "Alexandre Delègue", "", url(s"https://github.com/larousso"))
+)
 publishMavenStyle := true
 
 publishArtifact in Test := false
 
+bintrayVcsUrl := Some(s"scm:git:git@github.com:$githubRepo.git")
+
+bintrayCredentialsFile := file(".credentials")
+
 pomIncludeRepository := { _ => false }
 
-pomExtra := (
-  <licenses>
-    <license>
-      <name>Apache 2</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0</url>
-      <distribution>repo</distribution>
-    </license>
-  </licenses>
-    <developers>
-      <developer>
-        <id>alexandre.delegue</id>
-        <name>Alexandre Delègue</name>
-        <url>https://github.com/larousso</url>
-      </developer>
-    </developers>
-  )
+releaseProcess := Seq[ReleaseStep](
+  checkSnapshotDependencies,
+  inquireVersions,
+  runClean,
+  runTest,
+  setReleaseVersion,
+  commitReleaseVersion,
+  tagRelease,
+  releaseStepCommandAndRemaining("publish"),
+  setNextVersion,
+  commitNextVersion,
+  pushChanges)
