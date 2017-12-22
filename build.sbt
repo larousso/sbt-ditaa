@@ -5,9 +5,9 @@ lazy val root = (project in file("."))
   .enablePlugins(BuildInfoPlugin, GitVersioning, GitBranchPrompt)
   .settings(
     name := "sbt-ditaa",
-    organization := "com.adelegue",
+    organization in ThisBuild := "com.adelegue",
     description := "sbt plugin to build ditaa diagrams",
-    resolvers += Resolver.bintrayRepo("larousso", "maven"),
+    resolvers += Resolver.bintrayRepo("larousso", "sbt-plugins"),
     sbtPlugin := true,
     packageBin in Compile := (assembly in Compile).value,
   )
@@ -30,11 +30,13 @@ lazy val publishSettings =
     developers := List(
       Developer("alexandre.delegue", "Alexandre Delègue", "", url(s"https://github.com/larousso"))
     ),
-    publishMavenStyle := true,
+    publishMavenStyle := false,
     publishArtifact in Test := false,
     bintrayVcsUrl := Some(s"scm:git:git@github.com:$githubRepo.git"),
     bintrayCredentialsFile := file(".credentials"),
-    pomIncludeRepository := { _ => false }
+    pomIncludeRepository := { _ => false },
+    bintrayRepository := "sbt-plugins",
+    bintrayOrganization in bintray := None
   )
 
 releaseProcess := Seq[ReleaseStep](
