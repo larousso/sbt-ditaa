@@ -8,7 +8,7 @@ lazy val root = (project in file("."))
     organization in ThisBuild := "com.adelegue",
     description := "sbt plugin to build ditaa diagrams",
     sbtPlugin := true,
-    packageBin in Compile := (assembly in Compile).value,
+    packageBin in Compile := (assembly in Compile).value
   )
   .settings(publishSettings:_*)
 
