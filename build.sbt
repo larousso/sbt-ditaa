@@ -35,6 +35,8 @@ publishArtifact in Test := false
 
 bintrayVcsUrl := Some(s"scm:git:git@github.com:$githubRepo.git")
 
+bintrayCredentialsFile := file(".credentials")
+
 pomIncludeRepository := { _ => false }
 
 releaseProcess := Seq[ReleaseStep](
@@ -45,7 +47,6 @@ releaseProcess := Seq[ReleaseStep](
   setReleaseVersion,
   commitReleaseVersion,
   tagRelease,
-  releaseStepCommandAndRemaining("publish"),
   setNextVersion,
   commitNextVersion,
   pushChanges)
